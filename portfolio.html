@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aftersunset — Press Kit</title>
+<meta name="description" content="Press kit for aftersunset, a live Bollywood covers band from Pune.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     aftersunset — press kit
+     A single-scroll editorial deck. Light theme = golden hour,
+     dark theme = deep dusk. Toggle in the top-right (DAWN / DUSK).
+
+     PHOTOS: every .photo block is a styled placeholder. Drop a real
+     image inside and it is auto-treated to a sunset duotone:
+       <div class="photo"><img src="assets/band/shreyas.jpg" alt="Shreyas"></div>
+     ========================================================= */
+
+  :root{
+    --paper:#f7eddf;
+    --paper-low:#f0dcc4;      /* the sky lower down the page */
+    --ink:#241c16;
+    --ink-soft:#6b5b4c;
+    --line:rgba(36,28,22,.16);
+    --card:#fffaf1;
+    --sun:#f2b134;
+    --marigold:#e0912a;
+    --coral:#db4d33;
+    --magenta:#a5386a;
+    --grain:.05;
+    --shadow:0 30px 60px -30px rgba(60,30,20,.45);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#170f1e;
+      --paper-low:#241134;
+      --ink:#f4e8d9;
+      --ink-soft:#b39fb2;
+      --line:rgba(244,232,217,.16);
+      --card:#20142e;
+      --sun:#f7c25a;
+      --marigold:#f0a844;
+      --coral:#ef6a4a;
+      --magenta:#d264954a;
+      --magenta:#d26495;
+      --grain:.075;
+      --shadow:0 30px 70px -30px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#170f1e;
+    --paper-low:#241134;
+    --ink:#f4e8d9;
+    --ink-soft:#b39fb2;
+    --line:rgba(244,232,217,.16);
+    --card:#20142e;
+    --sun:#f7c25a;
+    --marigold:#f0a844;
+    --coral:#ef6a4a;
+    --magenta:#d26495;
+    --grain:.075;
+    --shadow:0 30px 70px -30px rgba(0,0,0,.7);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    background-image:linear-gradient(180deg, var(--paper) 0%, var(--paper) 30%, var(--paper-low) 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Archivo', system-ui, sans-serif;
+    font-size:1.0625rem;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--coral); color:#fff;}
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--coral); outline-offset:3px; border-radius:2px;}
+  img{max-width:100%; display:block;}
+
+  /* grain overlay for the whole page */
+  body::after{
+    content:""; position:fixed; inset:0; z-index:9999; pointer-events:none;
+    opacity:var(--grain);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap{max-width:1180px; margin-inline:auto; padding-inline:clamp(20px,5vw,64px);}
+
+  /* ---------- type ---------- */
+  h1,h2,h3{font-family:'Fraunces', Georgia, serif; font-weight:900; line-height:1.02; letter-spacing:-.02em; text-wrap:balance;}
+  .mono{
+    font-family:'Space Mono', ui-monospace, monospace;
+    font-size:.72rem; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .mono.accent{color:var(--coral);}
+
+  .eyebrow{ margin-bottom:22px; display:flex; align-items:center; gap:14px; }
+  .eyebrow::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  section{ padding-block:clamp(66px,12vh,132px); border-top:1px solid var(--line); }
+
+  .lead{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:400;
+    font-size:clamp(1.4rem, 3.2vw, 2.35rem);
+    line-height:1.28;
+    letter-spacing:-.01em;
+  }
+  .lead em{ font-style:italic; color:var(--coral); }
+  p + p{ margin-top:1em; }
+  .muted{ color:var(--ink-soft); }
+
+  .split{
+    display:grid;
+    grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);
+    gap:clamp(28px,6vw,84px);
+    align-items:start;
+  }
+  @media (max-width:820px){ .split{ grid-template-columns:1fr; gap:28px; } }
+
+  h2{ font-size:clamp(2rem, 5.2vw, 3.5rem); }
+  .section-h{ margin-bottom:34px; }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px clamp(20px,5vw,64px);
+    background:color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .brand{ font-family:'Fraunces',serif; font-weight:900; font-size:1.15rem; letter-spacing:-.03em; }
+  nav .nav-right{ display:flex; align-items:center; gap:22px; }
+  nav .nav-links{ display:flex; gap:20px; }
+  nav .nav-links a{ text-decoration:none; }
+  nav .nav-links a:hover{ color:var(--coral); }
+  @media (max-width:680px){ nav .nav-links{ display:none; } }
+
+  .toggle{
+    font-family:'Space Mono', monospace; font-size:.68rem; letter-spacing:.18em;
+    text-transform:uppercase;
+    background:none; border:1px solid var(--line); color:var(--ink-soft);
+    padding:7px 12px; border-radius:2px; cursor:pointer;
+    display:flex; align-items:center; gap:8px;
+    transition:border-color .2s, color .2s;
+  }
+  .toggle:hover{ color:var(--ink); border-color:var(--ink-soft); }
+  .toggle .dot{ width:8px; height:8px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--sun), var(--coral)); }
+
+  /* ---------- cover ---------- */
+  .cover{
+    position:relative; border-top:none;
+    min-height:min(94vh, 900px);
+    display:flex; flex-direction:column; justify-content:center;
+    padding-block:clamp(70px,14vh,150px);
+    overflow:hidden;
+  }
+  .cover .tags{
+    position:absolute; inset:0; pointer-events:none;
+  }
+  .cover .tags span{ position:absolute; white-space:nowrap; }
+  .cover .tags span:nth-child(1){ top:8%;  left:2%; }
+  .cover .tags span:nth-child(2){ top:16%; right:3%; }
+  .cover .tags span:nth-child(3){ bottom:20%; left:1%; }
+  .cover .tags span:nth-child(4){ bottom:9%; right:2%; color:var(--coral); }
+  .cover .tags span:nth-child(5){ top:47%; right:0; }
+  @media (max-width:680px){ .cover .tags{ display:none; } }
+
+  .sun-disc{
+    position:absolute; left:50%; top:46%;
+    width:min(74vw, 620px); aspect-ratio:1; border-radius:50%;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle at 50% 45%,
+      var(--sun) 0%, var(--marigold) 34%, var(--coral) 60%, transparent 72%);
+    opacity:.5; filter:blur(2px);
+    z-index:0;
+  }
+  .horizon{
+    position:absolute; left:0; right:0; top:calc(46% + 0px);
+    height:1px; background:linear-gradient(90deg, transparent, var(--ink) 20%, var(--ink) 80%, transparent);
+    opacity:.25; z-index:1;
+  }
+
+  .wordmark{
+    position:relative; z-index:2;
+    font-family:'Fraunces', serif; font-weight:900;
+    font-size:clamp(3.4rem, 15vw, 12rem);
+    line-height:.9; letter-spacing:-.045em;
+    text-align:center;
+    color:var(--ink);
+  }
+  .wordmark span{ position:relative; display:inline-block; }
+  .wordmark span::before,
+  .wordmark span::after{
+    content:attr(data-t); position:absolute; inset:0; z-index:-1;
+    transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .wordmark span::before{ color:var(--coral);  transform:translate(-.045em,.012em); opacity:.55; }
+  .wordmark span::after{  color:var(--magenta); transform:translate(.045em,-.012em); opacity:.55; }
+  .cover:hover .wordmark span::before{ transform:translate(-.09em,.024em); }
+  .cover:hover .wordmark span::after{  transform:translate(.09em,-.024em); }
+
+  .cover-foot{
+    position:relative; z-index:2;
+    margin-top:clamp(34px,7vh,74px);
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:16px;
+    text-align:left;
+  }
+  .cover-foot .big{
+    font-family:'Fraunces',serif; font-weight:400; font-style:italic;
+    font-size:clamp(1.05rem,2.4vw,1.5rem); max-width:22ch;
+    color:var(--ink);
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee{
+    border-block:1px solid var(--line);
+    padding-block:20px; overflow:hidden; white-space:nowrap;
+  }
+  .marquee-track{
+    display:inline-block;
+    font-family:'Fraunces',serif; font-weight:900; font-size:clamp(1.3rem,3vw,2rem);
+    letter-spacing:-.01em;
+    animation:scroll 34s linear infinite;
+  }
+  .marquee-track span{ margin:0 .55em; color:var(--ink); }
+  .marquee-track span.star{ color:var(--coral); }
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- stats ---------- */
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:clamp(16px,4vw,48px); margin-top:8px;
+  }
+  .stat b{
+    display:block; font-family:'Fraunces',serif; font-weight:900;
+    font-size:clamp(2.4rem,6vw,4rem); line-height:1;
+    background:linear-gradient(120deg, var(--marigold), var(--coral) 55%, var(--magenta));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat span{ display:block; margin-top:8px; }
+  @media (max-width:560px){ .stat-row{ grid-template-columns:1fr; gap:20px; text-align:left; }
+    .stat{ display:flex; align-items:baseline; gap:16px; }
+    .stat b{ font-size:2.6rem; } .stat span{ margin-top:0; } }
+
+  /* ---------- repertoire list ---------- */
+  .rep{ display:grid; gap:0; }
+  .rep-row{
+    display:grid; grid-template-columns:5.5rem 1fr; gap:clamp(14px,3vw,40px);
+    padding-block:22px; border-top:1px solid var(--line); align-items:baseline;
+  }
+  .rep-row:last-child{ border-bottom:1px solid var(--line); }
+  .rep-row h3{ font-size:1.15rem; font-weight:900; }
+  .rep-row .decade{ font-family:'Space Mono',monospace; color:var(--coral); font-size:.85rem; }
+  .rep-row p{ color:var(--ink-soft); font-size:.98rem; }
+
+
+  /* ---------- gallery ---------- */
+  .gallery{ column-count:3; column-gap:14px; margin-top:34px; }
+  @media (max-width:900px){ .gallery{ column-count:2; } }
+  @media (max-width:520px){ .gallery{ column-count:1; } }
+  #galleryMain{ max-width:1100px; margin:34px auto 0; }
+  #galleryMain .g-item{ margin:0; }
+  .g-item{ position:relative; break-inside:avoid; margin:0 0 14px; cursor:zoom-in; overflow:hidden;
+    border-radius:2px; box-shadow:var(--shadow); background:#000; }
+  .g-item img,.g-item video{ display:block; width:100%; height:auto; transition:transform .5s; }
+  .g-item:hover img,.g-item:hover video{ transform:scale(1.03); }
+  .g-item .play{ position:absolute; top:10px; left:10px; font-family:'Space Mono',monospace; font-size:.65rem;
+    letter-spacing:.14em; padding:4px 8px; background:rgba(20,10,20,.7); color:#fff; border-radius:2px; }
+  .g-item.live .play::before{ content:"\25CF "; color:#ff4d4d; }
+  #lightbox{ position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center;
+    background:rgba(10,5,12,.94); }
+  #lightbox.open{ display:flex; }
+  #lightbox .lb-media{ max-width:92vw; max-height:88vh; }
+  #lightbox button{ position:absolute; background:none; border:0; color:#fff; font-size:2.4rem; cursor:pointer; padding:14px; }
+  #lbClose{ top:6px; right:10px; } #lbPrev{ left:6px; } #lbNext{ right:6px; }
+
+  /* ---------- band grid ---------- */
+  .band{
+    display:grid; grid-template-columns:repeat(5,1fr);
+    gap:clamp(12px,2vw,22px);
+  }
+  @media (max-width:980px){ .band{ grid-template-columns:repeat(3,1fr); gap:22px; } }
+  @media (max-width:640px){ .band{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:420px){ .band{ grid-template-columns:1fr; max-width:360px; } }
+
+  .photo{
+    position:relative; overflow:hidden; border-radius:2px;
+    aspect-ratio:4/5;
+    background:linear-gradient(155deg, var(--magenta), var(--coral) 52%, var(--marigold));
+    display:grid; place-items:center;
+    box-shadow:var(--shadow);
+  }
+  .photo img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    filter:grayscale(1) contrast(1.06) brightness(.98);
+    mix-blend-mode:luminosity;
+  }
+  .member .photo img{ mix-blend-mode:normal; filter:grayscale(1) contrast(1.08); }
+  .photo .glyph{
+    font-family:'Fraunces',serif; font-weight:900; font-size:5rem;
+    color:rgba(255,255,255,.82); mix-blend-mode:soft-light;
+  }
+  .photo::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(to top, rgba(20,10,20,.5), transparent 55%);
+  }
+  .member h3{ margin-top:16px; font-size:1.35rem; font-weight:900; line-height:1; }
+  .member .role{ font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--coral); margin-top:8px; }
+  .member p{ margin-top:10px; font-size:.92rem; color:var(--ink-soft); line-height:1.55; }
+
+  /* ---------- on stage ---------- */
+  .spec{ border-top:1px solid var(--line); padding-block:18px;
+    display:grid; grid-template-columns:8rem 1fr; gap:24px; align-items:baseline; }
+  .spec:last-child{ border-bottom:1px solid var(--line); }
+  .spec dt{ font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink-soft); }
+  .spec dd{ font-size:1rem; }
+
+  /* ---------- shows ---------- */
+  .show{
+    display:grid; grid-template-columns:5rem 1fr auto; gap:clamp(14px,3vw,32px);
+    padding-block:20px; border-top:1px solid var(--line); align-items:baseline;
+  }
+  .show:last-child{ border-bottom:1px solid var(--line); }
+  .show .d{ font-family:'Space Mono',monospace; color:var(--coral); font-size:.85rem; }
+  .show .v{ font-family:'Fraunces',serif; font-weight:600; font-size:1.1rem; }
+  .show .c{ color:var(--ink-soft); font-size:.9rem; }
+  .show-note{ margin-top:20px; }
+
+  /* ---------- contact ---------- */
+  .contact{
+    background:
+      linear-gradient(180deg, rgba(10,4,14,.86), rgba(10,4,14,.94)),
+      radial-gradient(ellipse at 30% 0%, var(--magenta), transparent 60%),
+      linear-gradient(120deg, #2a0f22, #120818);
+    color:#f4e8d9;
+    border-top:1px solid rgba(244,232,217,.14);
+  }
+  .contact .mono{ color:rgba(244,232,217,.6); }
+  .contact h2{ color:#fff; }
+  .contact a{ color:#fff; }
+  .contact .channels{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:44px;
+  }
+  @media (max-width:720px){ .contact .channels{ grid-template-columns:1fr; gap:22px; } }
+  .channel .mono{ display:block; margin-bottom:8px; }
+  .channel .val{ font-family:'Fraunces',serif; font-size:clamp(1.05rem,2.2vw,1.35rem); word-break:break-word; }
+  .channel a{ text-decoration:none; border-bottom:1px solid rgba(244,232,217,.3); }
+  .channel a:hover{ border-color:var(--sun); color:var(--sun); }
+  .slot{ border:1px dashed rgba(244,232,217,.35); border-radius:2px; padding:6px 10px;
+    display:inline-block; color:rgba(244,232,217,.5); font-family:'Space Mono',monospace;
+    font-size:.8rem; }
+
+  footer{ padding:34px 0 60px; }
+  footer .fine{ font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.06em;
+    color:rgba(244,232,217,.4); }
+
+  /* ---------- reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ animation:none !important; transition:none !important; }
+    .reveal{ opacity:1; transform:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">aftersunset</span>
+  <div class="nav-right">
+    <div class="nav-links mono">
+      <a href="#about">About</a>
+      <a href="#set">The Set</a>
+      <a href="#band">Band</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#book">Book</a>
+    </div>
+    <button class="toggle" id="themeToggle" aria-label="Switch theme">
+      <span class="dot"></span><span id="themeLabel">Dusk</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ COVER ============ -->
+<header class="cover wrap">
+  <div class="tags mono">
+    <span>Bollywood</span>
+    <span>Marathi</span>
+    <span>Covers</span>
+    <span>Originals</span>
+    <span>Pune · Live 5-piece</span>
+  </div>
+  <div class="sun-disc" aria-hidden="true"></div>
+  <div class="horizon" aria-hidden="true"></div>
+
+  <div class="wordmark" aria-label="aftersunset">
+    <span data-t="after">after</span><span data-t="sunset">sunset</span>
+  </div>
+
+  <div class="cover-foot">
+    <p class="big">A live Bollywood covers band for the nights that start after sunset.</p>
+    <p class="mono">Press Kit — 2026 &nbsp;/&nbsp; Weddings · Sangeets · Corporate · Private</p>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="wrap">
+  <div class="split">
+    <div>
+      <div class="eyebrow"><span class="mono accent">01 — The Band</span></div>
+      <h2>Pune's own house band for the dance floor.</h2>
+    </div>
+    <div>
+      <p class="lead">Five musicians, one packed floor, every time. <em>aftersunset</em> plays the hits — old Bollywood, new Bollywood, Marathi favourites and a handful of originals — arranged live for weddings, sangeets and the kind of night that only really begins once the sun is down.</p>
+      <p class="muted" style="margin-top:1.4em;">We have played 150+ shows across the city — college fests, highstreet venues, private lawns and hotel ballrooms. The set is built around the room: a slow-burn opening, a peak that stays up, and songs the whole family already knows the words to.</p>
+    </div>
+  </div>
+
+  <div class="stat-row" style="margin-top:clamp(48px,9vh,90px);">
+    <div class="stat reveal"><b>150+</b><span class="mono">Shows played</span></div>
+    <div class="stat reveal"><b>6</b><span class="mono">Decades of music</span></div>
+    <div class="stat reveal"><b>5</b><span class="mono">Piece live band</span></div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee"></div>
+</div>
+
+<!-- ============ THE SET ============ -->
+<section id="set" class="wrap">
+  <div class="section-h">
+    <div class="eyebrow"><span class="mono accent">02 — The Set</span></div>
+    <h2>Six decades, one continuous dance floor.</h2>
+  </div>
+  <div class="split">
+    <p class="muted">The repertoire runs from Kishore-era classics to whatever dropped last month. Every song is re-arranged for a five-piece — nothing on backing track that the band can play in the room. Sample spans below; full song list on request.</p>
+    <div class="rep">
+      <div class="rep-row reveal">
+        <span class="decade">60s–70s</span>
+        <div><h3>Golden-age Bollywood</h3><p>R.D. Burman, Kishore Kumar, Asha — the openers and the encores.</p></div>
+      </div>
+      <div class="rep-row reveal">
+        <span class="decade">80s–90s</span>
+        <div><h3>Retro floor-fillers</h3><p>The wedding-sangeet canon. Nadeem–Shravan, Bappi, early A.R. Rahman.</p></div>
+      </div>
+      <div class="rep-row reveal">
+        <span class="decade">2000s</span>
+        <div><h3>Millennial singalongs</h3><p>The songs the couple grew up on — every table knows the chorus.</p></div>
+      </div>
+      <div class="rep-row reveal">
+        <span class="decade">Now</span>
+        <div><h3>Current Bollywood &amp; Marathi</h3><p>Arijit, Pritam, Ajay–Atul and the Marathi hits that keep Pune floors full.</p></div>
+      </div>
+      <div class="rep-row reveal">
+        <span class="decade">Ours</span>
+        <div><h3>aftersunset originals</h3><p>A short set of our own material, slotted in when the night wants it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BAND ============ -->
+<section id="band" class="wrap">
+  <div class="section-h">
+    <div class="eyebrow"><span class="mono accent">03 — Who We Are</span></div>
+    <h2>Meet the band.</h2>
+  </div>
+
+  <!-- Replace each .glyph with <img src="assets/band/name.jpg" alt="Name"> for real photos. -->
+  <div class="band">
+    <div class="member reveal">
+      <div class="photo"><a href="artist/shreyas.html"><img src="band/shreyas.jpg" alt="Shreyas"></a></div>
+      <h3><a href="artist/shreyas.html" style="color:inherit;text-decoration:none">Shreyas</a></h3>
+      <div class="role">Guitar &amp; Vocals</div>
+      <p>Frontman and rhythm engine. Builds the setlist, reads the room, sings lead on the big ones.</p>
+    </div>
+    <div class="member reveal">
+      <div class="photo"><a href="artist/harshita.html"><img src="band/harshita.jpg" alt="Harshita"></a></div>
+      <h3><a href="artist/harshita.html" style="color:inherit;text-decoration:none">Harshita</a></h3>
+      <div class="role">Vocals</div>
+      <p>Lead voice across eras — the ghazal-soft numbers and the full-throttle sangeet closers alike.</p>
+    </div>
+    <div class="member reveal">
+      <div class="photo"><a href="artist/sunny.html"><img src="band/sunny.jpg" alt="Sunny"></a></div>
+      <h3><a href="artist/sunny.html" style="color:inherit;text-decoration:none">Sunny</a></h3>
+      <div class="role">Bass</div>
+      <p>Low end and pocket. Locks the retro grooves and keeps the dance floor honest.</p>
+    </div>
+    <div class="member reveal">
+      <div class="photo"><a href="artist/atharva.html"><img src="band/atharva.jpg" alt="Atharva"></a></div>
+      <h3><a href="artist/atharva.html" style="color:inherit;text-decoration:none">Atharva</a></h3>
+      <div class="role">Drums</div>
+      <p>Sets the tempo and the transitions — the reason one song rolls into the next without a gap.</p>
+    </div>
+    <div class="member reveal">
+      <div class="photo"><span class="glyph">A</span></div>
+      <h3><a href="artist/andy.html" style="color:inherit;text-decoration:none">Andy</a></h3>
+      <div class="role">Keys &amp; Synths</div>
+      <p>Strings, brass and the signature hooks — fills the arrangements out so a four-line song sounds like the record.</p>
+    </div>
+  </div>
+  <p class="mono" style="margin-top:22px;">Bios above are sample copy — swap in your own.</p>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" class="wrap" hidden>
+  <div class="section-h">
+    <div class="eyebrow"><span class="mono accent">Moments</span></div>
+    <h2>Live, from the floor.</h2>
+  </div>
+  <div id="galleryMain"></div>
+  <div class="gallery" id="galleryGrid"></div>
+</section>
+<div id="lightbox" aria-modal="true" role="dialog">
+  <button id="lbClose" aria-label="Close">&times;</button>
+  <button id="lbPrev" aria-label="Previous">&#8249;</button>
+  <div id="lbBody"></div>
+  <button id="lbNext" aria-label="Next">&#8250;</button>
+</div>
+<script src="gallery-data.js"></script>
+<script>
+(function(){
+  var data = window.GALLERY || [];
+  if(!data.length) return;
+  document.getElementById('gallery').hidden = false;
+  var grid = document.getElementById('galleryGrid'), feat = document.getElementById('galleryMain'), cur = 0;
+  data.forEach(function(it,i){
+    var d = document.createElement('div'); d.className = 'g-item';
+    if(it.main){
+      d.classList.add('live');
+      d.innerHTML = '<video src="'+it.src+'" poster="'+it.poster+'" autoplay muted loop playsinline></video><span class="play">LIVE</span>';
+      d.addEventListener('click', function(){ show(i); });
+      feat.appendChild(d); return;
+    }
+    d.innerHTML = it.type==='video'
+      ? '<img src="'+it.poster+'" alt="" loading="lazy"><span class="play">&#9654; VIDEO</span>'
+      : '<img src="'+it.src+'" alt="" loading="lazy">';
+    d.addEventListener('click', function(){ show(i); });
+    grid.appendChild(d);
+  });
+  var lb = document.getElementById('lightbox'), body = document.getElementById('lbBody');
+  function show(i){
+    cur = (i+data.length)%data.length; var it = data[cur];
+    body.innerHTML = it.type==='video'
+      ? '<video class="lb-media" src="'+it.src+'" controls autoplay playsinline></video>'
+      : '<img class="lb-media" src="'+it.src+'" alt="">';
+    lb.classList.add('open');
+  }
+  function close(){ lb.classList.remove('open'); body.innerHTML=''; }
+  document.getElementById('lbClose').onclick = close;
+  document.getElementById('lbPrev').onclick = function(){ show(cur-1); };
+  document.getElementById('lbNext').onclick = function(){ show(cur+1); };
+  lb.addEventListener('click', function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key==='Escape') close(); if(e.key==='ArrowLeft') show(cur-1); if(e.key==='ArrowRight') show(cur+1);
+  });
+  var tx=0; lb.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;});
+  lb.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50) show(cur+(dx<0?1:-1));});
+})();
+</script>
+
+<!-- ============ ON STAGE ============ -->
+<section class="wrap">
+  <div class="split">
+    <div>
+      <div class="eyebrow"><span class="mono accent">04 — On Stage</span></div>
+      <h2>What a booking looks like.</h2>
+      <p class="muted" style="margin-top:20px;">Practical details for planners and venues. We travel light and adapt to the space — lawn, ballroom or rooftop.</p>
+    </div>
+    <dl>
+      <div class="spec"><dt>Format</dt><dd>5-piece live band — guitar, lead vocals, bass, drums, keys. Backing tracks kept minimal.</dd></div>
+      <div class="spec"><dt>Set length</dt><dd>Two 45-minute sets, or one continuous 90, with a DJ handover either side.</dd></div>
+      <div class="spec"><dt>Languages</dt><dd>Hindi, Marathi, and English covers on request.</dd></div>
+      <div class="spec"><dt>Space</dt><dd>Roughly 4m × 3m stage, power, and cover if outdoors. We bring our own backline and in-ears.</dd></div>
+      <div class="spec"><dt>Sound</dt><dd>We can bring a compact PA for up to ~150 guests, or plug into house sound with an engineer.</dd></div>
+      <div class="spec"><dt>Travel</dt><dd>Pune base. Mumbai, Nashik and nearby on a per-event basis.</dd></div>
+    </dl>
+  </div>
+  <p class="mono" style="margin-top:22px;">Specs above are a sample rider — edit to match your setup.</p>
+</section>
+
+<!-- ============ SHOWS ============ -->
+<section class="wrap">
+  <div class="section-h">
+    <div class="eyebrow"><span class="mono accent">05 — Live</span></div>
+    <h2>Selected shows.</h2>
+  </div>
+  <div class="shows">
+    <div class="show reveal"><span class="d">29–30 Aug</span><span class="v">Meridian, Balewadi Highstreet</span><span class="c">Baner, Pune</span></div>
+    <div class="show reveal"><span class="d">25 Aug</span><span class="v">IMDR College</span><span class="c">FC Road, Pune</span></div>
+    <div class="show reveal"><span class="d">2025</span><span class="v">Private sangeets &amp; corporate nights</span><span class="c">Pune &amp; around</span></div>
+  </div>
+  <p class="muted show-note">…and 150 more. Full gig history and video on request.</p>
+</section>
+
+<!-- ============ BOOK / CONTACT ============ -->
+<section id="book" class="contact">
+  <div class="wrap">
+    <div class="eyebrow"><span class="mono accent">06 — Book Us</span></div>
+    <h2>Get aftersunset for your night.</h2>
+    <p class="lead" style="max-width:32ch; margin-top:18px;">Tell us the date, the venue and roughly how many people. We'll send back availability and a quote.</p>
+
+    <div class="channels">
+      <div class="channel">
+        <span class="mono">Email</span>
+        <div class="val"><a href="mailto:connect.aftersunset01@gmail.com">connect.aftersunset01@gmail.com</a></div>
+      </div>
+      <div class="channel">
+        <span class="mono">Instagram</span>
+        <div class="val"><a href="https://www.instagram.com/_.aftersunset/" target="_blank" rel="noopener noreferrer">@_.aftersunset</a></div>
+      </div>
+      <div class="channel">
+        <span class="mono">Booking line</span>
+        <div class="val"><span class="slot">+91 — add number</span></div>
+      </div>
+    </div>
+
+    <footer>
+      <p class="fine">© <span id="year"></span> aftersunset · Live Bollywood covers · Pune, India</p>
+    </footer>
+  </div>
+</section>
+
+<script>
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // marquee content
+  var words = ["Bollywood","Marathi","Covers","Originals","Weddings","Sangeets"];
+  var one = words.map(function(w){ return '<span>'+w+'</span><span class="star"> ☀ </span>'; }).join('');
+  document.getElementById('marquee').innerHTML = one + one;
+
+  // theme toggle
+  (function(){
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    var label = document.getElementById('themeLabel');
+    var stored = null;
+    try{ stored = localStorage.getItem('as-theme'); }catch(e){}
+    if(stored){ root.setAttribute('data-theme', stored); }
+    function sync(){
+      var dark = root.getAttribute('data-theme') === 'dark'
+        || (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme:dark)').matches);
+      label.textContent = dark ? 'Dawn' : 'Dusk';
+    }
+    sync();
+    btn.addEventListener('click', function(){
+      var cur = root.getAttribute('data-theme');
+      var next = (cur === 'dark') ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try{ localStorage.setItem('as-theme', next); }catch(e){}
+      sync();
+    });
+  })();
+
+  // scroll reveal
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:.14 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+
+</body>
+</html>

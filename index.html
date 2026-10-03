@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aftersunset — Bollywood Covers Live</title>
+<style>
+  @font-face{font-family:'BL Melody'; src:url('assets/fonts/BLMelody-ExtraLight.woff') format('woff'); font-weight:200; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody'; src:url('assets/fonts/BLMelody-Light.woff') format('woff'); font-weight:300; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody'; src:url('assets/fonts/BLMelody-Regular.woff') format('woff'); font-weight:400; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody'; src:url('assets/fonts/BLMelody-Medium.woff') format('woff'); font-weight:500; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody'; src:url('assets/fonts/BLMelody-SemiBold.woff') format('woff'); font-weight:600; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody'; src:url('assets/fonts/BLMelody-Bold.woff') format('woff'); font-weight:700; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody Mono'; src:url('assets/fonts/BLMelodyMono-ExtraLight.woff') format('woff'); font-weight:200; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody Mono'; src:url('assets/fonts/BLMelodyMono-Light.woff') format('woff'); font-weight:300; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody Mono'; src:url('assets/fonts/BLMelodyMono-Regular.woff') format('woff'); font-weight:400; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody Mono'; src:url('assets/fonts/BLMelodyMono-Medium.woff') format('woff'); font-weight:500; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody Mono'; src:url('assets/fonts/BLMelodyMono-SemiBold.woff') format('woff'); font-weight:600; font-style:normal; font-display:swap;}
+  @font-face{font-family:'BL Melody Mono'; src:url('assets/fonts/BLMelodyMono-Bold.woff') format('woff'); font-weight:700; font-style:normal; font-display:swap;}
+  :root{
+    --bg:#0d0906;
+    --curtain:#3d1712;
+    --curtain-2:#511b16;
+    --neon-pink:#e8432f;
+    --neon-gold:#f2b134;
+    --neon-teal:#2bb3a3;
+    --cream:#f3e4c8;
+    --smoke:rgba(243,228,200,.68);
+    --line:rgba(243,228,200,.18);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'BL Melody', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--neon-pink); color:#08080b;}
+  :focus-visible{outline:2px solid var(--neon-teal); outline-offset:3px;}
+
+  h1,h2,h3{font-family:'BL Melody', sans-serif; font-weight:700; letter-spacing:.02em;}
+  .section-head h2, footer h2{font-family:'BL Melody', sans-serif; font-weight:700; letter-spacing:.01em;}
+
+  .eyebrow{
+    font-family:'BL Melody Mono', monospace;
+    font-size:.72rem;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--neon-teal);
+  }
+
+  .wrap{max-width:1120px; margin:0 auto; padding-left:28px; padding-right:28px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:flex-end;
+    padding:20px 28px;
+    background:linear-gradient(to bottom, rgba(8,8,11,.85), transparent);
+  }
+  .nav-links{display:flex; gap:26px; font-family:'BL Melody Mono', monospace; font-size:.78rem; letter-spacing:.08em;}
+  .nav-links a{opacity:.75; transition:opacity .2s, color .2s;}
+  .nav-links a:hover{opacity:1; color:var(--neon-pink);}
+  @media (max-width:640px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero-scroll-wrap{
+    position:relative;
+    height:220vh;
+  }
+  .hero{
+    position:sticky;
+    top:0;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    padding:120px 20px 80px;
+    text-align:center;
+  }
+  .hero-media{
+    position:absolute; inset:0; z-index:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    filter:saturate(1.15) brightness(.55);
+  }
+  .hero-scrim{
+    position:absolute; inset:0; z-index:1;
+    background:
+      radial-gradient(ellipse at center 40%, rgba(8,8,11,.15), rgba(8,8,11,.88) 72%),
+      linear-gradient(to bottom, rgba(8,8,11,.55) 0%, rgba(8,8,11,.35) 30%, rgba(8,8,11,.9) 100%);
+  }
+  .grain{
+    position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .sunburst{
+    position:absolute;
+    top:50%; left:50%;
+    width:min(140vw, 1100px);
+    height:min(140vw, 1100px);
+    transform:translate(-50%,-50%);
+    background:repeating-conic-gradient(var(--neon-gold) 0deg 3.5deg, var(--neon-pink) 3.5deg 7deg, transparent 7deg 11deg);
+    border-radius:50%;
+    opacity:.16;
+    mix-blend-mode:screen;
+    animation:spin 90s linear infinite;
+    z-index:1;
+    pointer-events:none;
+  }
+  @keyframes spin{ to{ transform:translate(-50%,-50%) rotate(360deg); } }
+
+  .marquee-frame{
+    position:relative; z-index:3;
+    padding:20px 20px;
+    max-width:640px;
+    margin:0 auto;
+  }
+
+  .hero-eyebrow{margin-bottom:14px;}
+  .badge-wrap{
+    display:block;
+    margin:0 auto;
+  }
+  .badge-stage{
+    position:relative;
+    height:min(82vh, 880px);
+    aspect-ratio:1587 / 2245;
+    max-width:88vw;
+    width:auto;
+    margin:0 auto;
+    perspective:1800px;
+    filter:drop-shadow(0 14px 24px rgba(0,0,0,.55));
+  }
+  .badge-flap{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    border-radius:14px;
+    transform-origin:left center;
+    backface-visibility:hidden;
+    will-change:transform;
+    z-index:2;
+  }
+  .reveal-content{
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .reveal-content.shown{
+    opacity:1;
+    transform:none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal-content{ opacity:1; transform:none; }
+  }
+  .hero-tagline{
+    margin-top:14px;
+    font-family:'BL Melody', sans-serif;
+    font-weight:500;
+    font-size:clamp(1.15rem, 2.8vw, 1.65rem);
+    color:var(--neon-pink);
+  }
+  .hero-sub{
+    margin-top:14px;
+    color:var(--smoke);
+    font-size:1rem;
+    max-width:420px;
+    margin-left:auto; margin-right:auto;
+  }
+  .hero-cta{
+    margin-top:34px;
+    display:inline-flex; gap:24px; flex-wrap:wrap; justify-content:center;
+  }
+  .btn{
+    font-family:'BL Melody Mono', monospace;
+    font-size:.8rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    padding:13px 26px;
+    border-radius:2px;
+    border:1px solid var(--neon-teal);
+    color:var(--neon-teal);
+    transition:transform .2s, background .2s, color .2s;
+    display:inline-block;
+  }
+  .btn:hover{background:var(--neon-teal); color:#08080b; transform:translateY(-2px);}
+  .btn.solid{background:var(--neon-pink); border-color:var(--neon-pink); color:#08080b;}
+  .btn.solid:hover{background:var(--neon-gold); border-color:var(--neon-gold);}
+
+  .scroll-cue{
+    position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+    z-index:3;
+    font-family:'BL Melody Mono', monospace;
+    font-size:.68rem;
+    letter-spacing:.3em;
+    color:var(--smoke);
+    text-transform:uppercase;
+    transition:opacity .4s ease;
+  }
+
+  /* ---------- SECTIONS shared ---------- */
+  section{padding:110px 0;}
+  .section-head{margin-bottom:52px;}
+  .section-head h2{
+    font-size:clamp(2rem, 4.2vw, 3.1rem);
+    color:var(--cream);
+  }
+  .section-head h2 span{color:var(--neon-teal);}
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  .hero-reveal-page{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    margin:0;
+    max-width:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow:auto;
+    border-radius:14px;
+    padding:20px 22px 24px;
+    background:linear-gradient(155deg, var(--curtain), var(--curtain-2));
+    border:1px solid var(--line);
+    box-shadow:0 18px 40px rgba(0,0,0,.4);
+    text-align:center;
+    z-index:1;
+  }
+  .hero-reveal-page::before, .hero-reveal-page::after{
+    content:"";
+    position:absolute; top:10px; bottom:10px;
+    width:5px;
+    border-radius:3px;
+    background:linear-gradient(to bottom, transparent, var(--neon-gold), transparent);
+    opacity:.55;
+  }
+  .hero-reveal-page::before{ left:8px; }
+  
+  .hero-reveal-page::after{ right:8px; }
+  .hero-reveal-page h2{ font-size:clamp(1.4rem, 4vw, 2rem); margin-bottom:10px; }
+  .hero-reveal-page p{ color:var(--cream); font-size:.95rem; line-height:1.5; }
+  .hero-reveal-page .stat-row{ margin-top:16px; gap:26px; }
+  .hero-reveal-page .stat b{ font-size:1.3rem; }
+  .hero-reveal-page .hero-cta{ margin-top:20px; }
+  @media (max-width:640px){
+    .hero-reveal-page{padding:18px 16px 20px;}
+  }
+  .stat-row{display:flex; gap:44px; margin-top:38px; justify-content:center;}
+  .stat b{
+    display:block; font-family:'BL Melody'; font-weight:700; font-size:1.7rem; color:var(--neon-gold);
+  }
+  .stat span{font-family:'BL Melody Mono', monospace; font-size:.7rem; letter-spacing:.1em; color:var(--smoke); text-transform:uppercase;}
+  @media (max-width:640px){
+    .stat-row{gap:24px;}
+  }
+
+  /* ---------- CALENDAR ---------- */
+  .calendars{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:28px;
+    margin-bottom:12px;
+  }
+  .cal-month{
+    background:linear-gradient(155deg, var(--curtain), var(--curtain-2));
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px;
+  }
+  .cal-month-title{
+    font-family:'BL Melody', sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--neon-gold);
+    text-align:center;
+    margin-bottom:16px;
+  }
+  .cal-grid{
+    display:grid;
+    grid-template-columns:repeat(7, 1fr);
+    gap:5px;
+  }
+  .cal-weekday{
+    font-family:'BL Melody Mono', monospace;
+    font-size:.62rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--smoke);
+    text-align:center;
+    padding-bottom:6px;
+  }
+  .cal-day{
+    position:relative;
+    aspect-ratio:1;
+    border-radius:7px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:4px 2px;
+    font-family:'BL Melody Mono', monospace;
+    font-size:.75rem;
+    color:var(--smoke);
+    background:rgba(243,228,200,.04);
+    text-decoration:none;
+  }
+  .cal-day.empty{background:none;}
+  .cal-day.has-show{
+    background:rgba(242,177,52,.16);
+    border:1px solid var(--neon-gold);
+    color:var(--cream);
+    cursor:pointer;
+    transition:background .2s, transform .2s;
+  }
+  .cal-day.has-show:hover{background:rgba(242,177,52,.3); transform:translateY(-2px);}
+  .cal-day.has-show.soldout{border-color:var(--neon-pink);}
+  .cal-day .num{font-weight:700; line-height:1;}
+  .cal-day .venue-label{
+    font-size:.5rem;
+    line-height:1.15;
+    margin-top:3px;
+    color:var(--neon-gold);
+    text-align:center;
+    overflow:hidden;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+  }
+  .cal-day.has-show.soldout .venue-label{color:var(--neon-pink);}
+  @media (max-width:480px){
+    .cal-day{font-size:.65rem;}
+    .cal-day .venue-label{display:none;}
+  }
+
+  /* ---------- SHOWS (ticket stubs) ---------- */
+  .shows-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+    gap:26px;
+  }
+  .ticket{
+    position:relative;
+    background:linear-gradient(155deg, var(--curtain), var(--curtain-2));
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:24px 24px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .ticket:hover{transform:translateY(-6px) rotate(-.6deg); border-color:var(--neon-pink);}
+  .ticket::before, .ticket::after{
+    content:"";
+    position:absolute;
+    width:20px; height:20px;
+    background:var(--bg);
+    border-radius:50%;
+    top:50%; transform:translateY(-50%);
+  }
+  .ticket::before{left:-11px;}
+  .ticket::after{right:-11px;}
+  .ticket-top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .ticket-date{font-family:'BL Melody Mono', monospace;}
+  .ticket-date .day{font-size:2.1rem; font-weight:700; color:var(--neon-gold); line-height:1;}
+  .ticket-date .month{font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; color:var(--smoke);}
+  .status-chip{
+    font-family:'BL Melody Mono', monospace;
+    font-size:.62rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:20px;
+    border:1px solid currentColor;
+    white-space:nowrap;
+  }
+  .status-chip.open{color:var(--neon-teal);}
+  .status-chip.soldout{color:var(--neon-pink);}
+  .ticket-venue{font-family:'BL Melody'; font-weight:700; font-size:1.2rem; color:var(--cream);}
+  .ticket-city{color:var(--smoke); font-size:.88rem;}
+  .ticket-divider{
+    border-top:1px dashed var(--line);
+    margin:2px 0;
+  }
+  .ticket-bottom{display:flex; justify-content:space-between; align-items:center;}
+  .ticket-time{font-family:'BL Melody Mono', monospace; font-size:.82rem; color:var(--smoke);}
+
+  /* ---------- TICKER ---------- */
+  .ticker-wrap{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:22px 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .ticker-track{
+    display:inline-block;
+    font-family:'BL Melody';
+    font-weight:700;
+    font-size:1.1rem;
+    letter-spacing:.03em;
+    animation:scroll 32s linear infinite;
+  }
+  .ticker-track span{margin:0 22px; color:var(--smoke);}
+  .ticker-track span.dot{color:var(--neon-pink);}
+  @keyframes scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+
+  /* ---------- BAND ---------- */
+  .band-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:32px;
+  }
+  .band-card{
+    flex:1 1 300px;
+    max-width:320px;
+    position:relative;
+    background:linear-gradient(155deg, var(--curtain), var(--curtain-2));
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:40px 28px 34px;
+    text-align:center;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .band-card:hover{transform:translateY(-6px); border-color:var(--neon-teal);}
+  .band-photo{
+    width:168px; height:168px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    border:3px solid var(--neon-gold);
+    background:linear-gradient(155deg, rgba(43,179,163,.18), rgba(232,67,47,.18));
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    font-family:'BL Melody'; font-weight:700; font-size:2.8rem; color:var(--neon-gold);
+  }
+  .band-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .band-name{font-family:'BL Melody'; font-weight:700; font-size:1.4rem; color:var(--cream);}
+  .band-role{
+    font-family:'BL Melody Mono', monospace;
+    font-size:.78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--neon-teal);
+    margin-top:8px;
+  }
+  .band-bio{color:var(--smoke); font-size:.92rem; margin-top:12px; line-height:1.5;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    position:relative;
+    padding:80px 0 46px;
+    text-align:center;
+    overflow:hidden;
+  }
+  footer h2{font-size:clamp(1.8rem, 4vw, 2.6rem); margin-bottom:16px;}
+  footer p{color:var(--smoke); margin-bottom:30px;}
+  .socials{display:flex; gap:22px; justify-content:center; margin-bottom:50px; font-family:'BL Melody Mono', monospace; letter-spacing:.08em; font-size:.85rem;}
+  .socials a{opacity:.75; transition:opacity .2s, color .2s;}
+  .socials a:hover{opacity:1; color:var(--neon-teal);}
+  .fine-print{font-family:'BL Melody Mono', monospace; font-size:.7rem; color:rgba(243,234,216,.35); letter-spacing:.05em;}
+
+  /* ---------- FOOTER FLOATING GALLERY ---------- */
+  .gallery-photos{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+  }
+  .gallery-photos .g-photo{
+    position:absolute;
+    top:var(--gy);
+    left:var(--gx);
+    width:var(--gs);
+    aspect-ratio:1;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 18px 34px rgba(0,0,0,.55);
+    opacity:.5;
+    filter:saturate(1.1) brightness(.8);
+    animation:g-float var(--gd) ease-in-out infinite;
+    animation-delay:var(--gdelay);
+  }
+  .gallery-photos .g-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  @keyframes g-float{
+    0%, 100%{ transform:translate(0,0) rotate(var(--gr)); }
+    50%{ transform:translate(var(--gtx), var(--gty)) rotate(calc(var(--gr) * -1)); }
+  }
+  .footer-content{position:relative; z-index:1;}
+  .footer-content::before{
+    content:"";
+    position:absolute;
+    inset:-40px -24px;
+    z-index:-1;
+    background:radial-gradient(ellipse at center, rgba(13,9,6,.86) 0%, rgba(13,9,6,.55) 55%, rgba(13,9,6,0) 78%);
+  }
+  @media (max-width:640px){
+    .gallery-photos .g-photo{opacity:.3;}
+    .gallery-photos .g-photo:nth-child(n+6){display:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#shows">Showtimes</a>
+    <a href="#contact">Book Us</a>
+  </div>
+</nav>
+
+<div class="hero-scroll-wrap" id="heroScrollWrap">
+<header class="hero">
+  <!--
+    VIDEO BACKGROUND:
+    Replace the <source> below with your own clip (mp4, ideally under ~15s, looping,
+    no audio needed since it's muted). Keep the poster= image as the fallback frame
+    that shows while the video loads (or if it fails on a slow connection).
+    Swap "assets/aftersunset-bg.jpg" for your band photo.
+  -->
+  <video class="hero-media" autoplay muted loop playsinline poster="assets/aftersunset-bg.jpg">
+    <source src="assets/aftersunset-bg.mp4" type="video/mp4">
+  </video>
+  <div class="hero-scrim"></div>
+  <div class="grain"></div>
+
+  <div class="sunburst"></div>
+  <div class="marquee-frame">
+    <div class="hero-eyebrow eyebrow">Live Bollywood Covers · Pune</div>
+    <h1 class="badge-wrap">
+    <div class="badge-stage" id="badgeStage">
+      <img src="assets/aftersunset-cover.png" alt="Aftersunset" class="badge-flap" id="badgeFlap" width="1587" height="2245">
+    <div class="hero-reveal-page reveal-content" id="about">
+      <div class="eyebrow">The Band</div>
+      <h2>Pune's own <span>Aftersunset</span></h2>
+      <p>A live Bollywood covers band based in Pune, playing the hits — old and new — for weddings, sangeets, and nights that start after sunset. Four musicians, one packed dance floor, every time.</p>
+      <div class="stat-row">
+        <div class="stat"><b>150+</b><span>Shows Played</span></div>
+        <div class="stat"><b>6</b><span>Decades of Music</span></div>
+        <div class="stat"><b>4</b><span>Piece Live Band</span></div>
+      </div>
+      <div class="hero-cta">
+        <a class="btn solid" href="#shows">See Showtimes</a>
+        <a class="btn" href="#contact">Book The Band</a>
+      </div>
+    </div>
+    </div>
+    </h1>
+
+  <div class="scroll-cue" id="scrollCue">Scroll ↓</div>
+</header>
+</div>
+
+<main>
+
+  <section id="shows" class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Now Showing</div>
+      <h2>Next <span>Showtimes</span></h2>
+    </div>
+    <div class="calendars reveal" id="calendars"></div>
+    <div class="eyebrow" style="margin:8px 0 20px;">Full Details</div>
+    <div class="shows-grid reveal" id="showsGrid"></div>
+  </section>
+
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <section id="band" class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Who We Are</div>
+      <h2>Meet <span>The Band</span></h2>
+    </div>
+    <div class="band-grid reveal" id="bandGrid"></div>
+  </section>
+
+  <section id="contact" class="wrap">
+    <footer>
+      <div class="gallery-photos" id="galleryPhotos" aria-hidden="true"></div>
+      <div class="footer-content">
+        <h2>Get Aftersunset for your night.</h2>
+        <p>Weddings · Sangeets · Corporate Events · Private Parties</p>
+        <a class="btn solid" href="mailto:connect.aftersunset01@gmail.com">connect.aftersunset01@gmail.com</a>
+        <div class="socials" style="margin-top:40px;">
+          <a href="https://www.instagram.com/_.aftersunset/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="#" aria-label="YouTube">YouTube</a>
+          <a href="#" aria-label="Spotify">Spotify</a>
+        </div>
+        <div class="fine-print">© <span id="year"></span> Aftersunset. All rights reserved.</div>
+      </div>
+    </footer>
+  </section>
+
+</main>
+
+<script>
+  // ---- EDIT YOUR SHOWS HERE ----
+  // status: "open" or "soldout"
+  const shows = [
+    { day:"25", month:"Aug", venue:"IMDR College", city:"FC Road", time:"3:00 PM", status:"open" },
+    { day:"29", month:"Aug", venue:"Meridian, Balewadi Highstreet", city:"Baner", time:"7:30 PM", status:"open" },
+    { day:"30", month:"Aug", venue:"Meridian, Balewadi Highstreet", city:"Baner", time:"7:30 PM", status:"open" },
+  ];
+
+  const grid = document.getElementById('showsGrid');
+  grid.innerHTML = shows.map(s => `
+    <div class="ticket">
+      <div class="ticket-top">
+        <div class="ticket-date">
+          <div class="day">${s.day}</div>
+          <div class="month">${s.month}</div>
+        </div>
+        <div class="status-chip ${s.status === 'soldout' ? 'soldout' : 'open'}">
+          ${s.status === 'soldout' ? 'Sold Out' : 'Open'}
+        </div>
+      </div>
+      <div>
+        <div class="ticket-venue">${s.venue}</div>
+        <div class="ticket-city">${s.city}</div>
+      </div>
+      <div class="ticket-divider"></div>
+      <div class="ticket-bottom">
+        <div class="ticket-time">${s.time}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // ---- Ticker: genres, duplicated for seamless loop ----
+  const genres = ["Bollywood","Marathi Songs","Covers","Original Music"];
+  const track = document.getElementById('tickerTrack');
+  const build = () => genres.map(s => `<span>${s}<span class="dot"> ★ </span></span>`).join('');
+  track.innerHTML = build() + build();
+
+  // ---- EDIT YOUR BAND MEMBERS HERE ----
+  // photo: leave blank to show initials, or set to an image path e.g. "assets/band/name.jpg"
+  const band = [
+    { name:"Shreyas", role:"Guitar & Vocals", photo:"assets/band/shreyas.jpg" },
+    { name:"Harshita", role:"Vocals", photo:"assets/band/harshita.jpg" },
+    { name:"Sunny", role:"Bass", photo:"assets/band/sunny.jpg" },
+    { name:"Atharva", role:"Drums", photo:"assets/band/atharva.jpg" },
+  ];
+
+  const bandGrid = document.getElementById('bandGrid');
+  bandGrid.innerHTML = band.map(m => {
+    const initials = m.name.trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    return `
+    <div class="band-card">
+      <div class="band-photo">${m.photo ? `<img src="${m.photo}" alt="${m.name}">` : initials}</div>
+      <div class="band-name">${m.name}</div>
+      <div class="band-role">${m.role}</div>
+      ${m.bio ? `<div class="band-bio">${m.bio}</div>` : ''}
+    </div>
+  `;
+  }).join('');
+
+  // ---- EDIT YOUR FOOTER GALLERY PHOTOS HERE ----
+  // add as many as you like — top/left are % positions within the footer
+  const galleryPhotos = [
+    { src:"assets/gallery/gig-1.jpg", top:"4%",  left:"3%",  size:130, rot:-7 },
+    { src:"assets/band/harshita.jpg", top:"10%", left:"80%", size:100, rot:6 },
+    { src:"assets/gallery/gig-2.jpg", top:"60%", left:"1%",  size:118, rot:5 },
+    { src:"assets/band/shreyas.jpg",  top:"64%", left:"85%", size:104, rot:-6 },
+    { src:"assets/gallery/gig-3.jpg", top:"0%",  left:"40%", size:96,  rot:4 },
+    { src:"assets/band/sunny.jpg",    top:"72%", left:"38%", size:88,  rot:-5 },
+    { src:"assets/band/atharva.jpg",  top:"38%", left:"90%", size:84,  rot:8 },
+  ];
+
+  const galleryEl = document.getElementById('galleryPhotos');
+  galleryEl.innerHTML = galleryPhotos.map((p, i) => {
+    const dur = (12 + (i % 5) * 2.3).toFixed(1);
+    const delay = (i * 0.9).toFixed(1);
+    const tx = (14 + (i % 3) * 6) * (i % 2 === 0 ? 1 : -1);
+    const ty = (16 + (i % 4) * 5) * (i % 2 === 0 ? -1 : 1);
+    const style = `--gx:${p.left}; --gy:${p.top}; --gs:${p.size}px; --gr:${p.rot}deg; --gd:${dur}s; --gdelay:${delay}s; --gtx:${tx}px; --gty:${ty}px;`;
+    return `<div class="g-photo" style="${style}"><img src="${p.src}" alt="" loading="lazy"></div>`;
+  }).join('');
+
+  // ---- Book cover page-turn animation ----
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion){
+    const wrap = document.getElementById('heroScrollWrap');
+    const flap = document.getElementById('badgeFlap');
+    const revealEls = document.querySelectorAll('.reveal-content');
+    const scrollCue = document.getElementById('scrollCue');
+    let ticking = false;
+
+    function updateFlap(){
+      const vh = window.innerHeight;
+      const rectTop = wrap.getBoundingClientRect().top;
+      const progress = Math.min(1, Math.max(0, -rectTop / (vh * 0.6)));
+      const angle = progress * 165; // hinge on left edge, sweeps right-to-left
+      flap.style.transform = `rotateY(-${angle}deg)`;
+      revealEls.forEach(el => {
+        el.classList.toggle('shown', progress > 0.35);
+      });
+      scrollCue.style.opacity = Math.max(0, 1 - progress * 3);
+      ticking = false;
+    }
+    updateFlap();
+    window.addEventListener('scroll', () => {
+      if(!ticking){ requestAnimationFrame(updateFlap); ticking = true; }
+    }, { passive:true });
+    window.addEventListener('resize', updateFlap);
+  }
+
+  // ---- Scroll reveal ----
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold:.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
