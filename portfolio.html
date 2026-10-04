@@ -266,11 +266,43 @@
 
 
   /* ---------- gallery ---------- */
-  .gallery{ column-count:3; column-gap:14px; margin-top:34px; }
-  @media (max-width:900px){ .gallery{ column-count:2; } }
-  @media (max-width:520px){ .gallery{ column-count:1; } }
-  #galleryMain{ max-width:1100px; margin:34px auto 0; }
-  #galleryMain .g-item{ margin:0; }
+  .gallery{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
+    grid-auto-flow:dense; margin-top:34px; }
+  @media (max-width:760px){ .gallery{ grid-template-columns:repeat(2,1fr); } }
+  .gallery .g-item{ margin:0; aspect-ratio:1; }
+  .gallery .g-item img,.gallery .g-item video{ width:100%; height:100%; object-fit:cover; }
+  #galleryMain{ position:relative; z-index:1; display:flex; justify-content:center; max-width:1400px; margin:0 auto; }
+  /* --- smartphone mockup around the clip --- */
+  #galleryMain .g-item{ margin:0; max-width:100%; position:relative; z-index:1; overflow:visible; cursor:pointer;
+    background:linear-gradient(145deg,#303035,#0c0c0e 42%);
+    padding:15px; border-radius:48px;
+    box-shadow:0 60px 150px -40px rgba(0,0,0,.85),
+      inset 0 0 0 2px rgba(255,255,255,.07), 0 0 0 1px rgba(0,0,0,.55); }
+  #galleryMain .g-item video{ display:block; width:auto; max-width:100%; max-height:112vh; border-radius:34px; }
+  /* notch / dynamic-island pill */
+  #galleryMain .g-item::before{ content:""; position:absolute; z-index:4; top:30px; left:50%;
+    transform:translateX(-50%); width:32%; max-width:140px; height:22px; background:#000; border-radius:999px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.06); }
+  /* side (power) button */
+  #galleryMain .g-item::after{ content:""; position:absolute; z-index:0; right:-3px; top:27%;
+    width:3px; height:72px; background:linear-gradient(#26262a,#141416); border-radius:0 3px 3px 0; }
+  /* keep the LIVE + location tags on the screen, not the bezel */
+  #galleryMain .g-item .play{ top:30px; left:30px; z-index:5; }
+  #galleryMain .g-item .vid-loc{ left:32px; bottom:32px; z-index:5; }
+
+  .video-hero{ position:relative; overflow:hidden; border-top:none; padding-block:clamp(40px,8vh,96px); }
+  /* glowing sunset orb behind the clip */
+  .video-hero::before{ content:""; position:absolute; left:50%; top:46%;
+    transform:translate(-50%,-50%); width:min(94vw,1000px); aspect-ratio:1; border-radius:50%;
+    background:radial-gradient(circle at 50% 45%, var(--sun) 0%, var(--marigold) 32%,
+      var(--coral) 55%, var(--magenta) 72%, transparent 76%);
+    opacity:.32; filter:blur(60px); z-index:0; pointer-events:none;
+    animation:heroPulse 9s ease-in-out infinite; }
+  /* thin horizon line through the glow */
+  .video-hero::after{ content:""; position:absolute; left:0; right:0; top:46%; height:1px; z-index:0;
+    background:linear-gradient(90deg, transparent, var(--ink) 25%, var(--ink) 75%, transparent);
+    opacity:.18; pointer-events:none; }
+  @keyframes heroPulse{ 0%,100%{ opacity:.26; } 50%{ opacity:.4; } }
   .g-item{ position:relative; break-inside:avoid; margin:0 0 14px; cursor:zoom-in; overflow:hidden;
     border-radius:2px; box-shadow:var(--shadow); background:#000; }
   .g-item img,.g-item video{ display:block; width:100%; height:auto; transition:transform .5s; }
@@ -278,6 +310,12 @@
   .g-item .play{ position:absolute; top:10px; left:10px; font-family:'Space Mono',monospace; font-size:.65rem;
     letter-spacing:.14em; padding:4px 8px; background:rgba(20,10,20,.7); color:#fff; border-radius:2px; }
   .g-item.live .play::before{ content:"\25CF "; color:#ff4d4d; }
+  .g-item .vid-loc{ position:absolute; left:12px; bottom:12px; z-index:2;
+    font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase;
+    padding:6px 11px; background:rgba(20,10,20,.68); color:#fff; border-radius:2px;
+    display:flex; align-items:center; gap:7px; backdrop-filter:blur(2px); }
+  .g-item .vid-loc::before{ content:""; width:7px; height:7px; border-radius:50%;
+    border:2px solid #fff; box-sizing:border-box; }
   #lightbox{ position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center;
     background:rgba(10,5,12,.94); }
   #lightbox.open{ display:flex; }
@@ -319,6 +357,38 @@
   .member .role{ font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.14em;
     text-transform:uppercase; color:var(--coral); margin-top:8px; }
   .member p{ margin-top:10px; font-size:.92rem; color:var(--ink-soft); line-height:1.55; }
+
+  /* ---------- artist profiles ---------- */
+  .profiles{ display:grid; gap:clamp(44px,9vh,96px); margin-top:44px; }
+  .profile{
+    display:grid; grid-template-columns:minmax(0,0.82fr) minmax(0,1.4fr);
+    gap:clamp(24px,5vw,64px); align-items:center;
+  }
+  .profile .photo{ aspect-ratio:4/5; }
+  .profile .photo .glyph{ font-size:4.5rem; }
+  .profile:nth-child(even) .photo{ order:2; }
+  @media (max-width:760px){
+    .profile{ grid-template-columns:1fr; gap:24px; }
+    .profile .photo{ order:0 !important; max-width:360px; }
+  }
+  .profile-name{ font-family:'Fraunces',serif; font-weight:900;
+    font-size:clamp(2rem,5vw,3.3rem); line-height:.95; margin-top:8px; }
+  .profile .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .profile .tags span{ font-family:'Space Mono',monospace; font-size:.66rem;
+    letter-spacing:.12em; text-transform:uppercase; padding:4px 11px;
+    border:1px solid var(--line); border-radius:999px; color:var(--ink-soft); }
+  .profile-body > p{ margin-top:18px; color:var(--ink-soft); max-width:58ch; }
+  .profile h4.sub{ margin-top:26px; font-family:'Space Mono',monospace;
+    font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink); }
+  .profile ul{ margin-top:12px; padding-left:1.15em; line-height:1.75;
+    color:var(--ink-soft); font-size:.95rem; }
+  .profile ul li{ margin-bottom:4px; }
+  .profile .links{ margin-top:22px; display:flex; gap:20px; flex-wrap:wrap;
+    font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.14em;
+    text-transform:uppercase; }
+  .profile .links a{ color:var(--coral); text-decoration:none;
+    border-bottom:1px solid transparent; padding-bottom:2px; }
+  .profile .links a:hover{ border-color:var(--coral); }
 
   /* ---------- on stage ---------- */
   .spec{ border-top:1px solid var(--line); padding-block:18px;
@@ -367,6 +437,10 @@
   footer .fine{ font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.06em;
     color:rgba(244,232,217,.4); }
 
+  /* ---------- site-wide black & white treatment ---------- */
+  img, video{ filter:grayscale(100%) !important; }
+  .photo img{ mix-blend-mode:normal !important; }
+
   /* ---------- reveal ---------- */
   .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
   .reveal.in{ opacity:1; transform:none; }
@@ -385,8 +459,8 @@
   <div class="nav-right">
     <div class="nav-links mono">
       <a href="#about">About</a>
-      <a href="#set">The Set</a>
       <a href="#band">Band</a>
+      <a href="#artists">Artists</a>
       <a href="#gallery">Gallery</a>
       <a href="#book">Book</a>
     </div>
@@ -418,6 +492,11 @@
   </div>
 </header>
 
+<!-- ============ LIVE VIDEO (hero) ============ -->
+<section id="videoHero" class="video-hero wrap" hidden>
+  <div id="galleryMain"></div>
+</section>
+
 <!-- ============ ABOUT ============ -->
 <section id="about" class="wrap">
   <div class="split">
@@ -443,43 +522,10 @@
   <div class="marquee-track" id="marquee"></div>
 </div>
 
-<!-- ============ THE SET ============ -->
-<section id="set" class="wrap">
-  <div class="section-h">
-    <div class="eyebrow"><span class="mono accent">02 — The Set</span></div>
-    <h2>Six decades, one continuous dance floor.</h2>
-  </div>
-  <div class="split">
-    <p class="muted">The repertoire runs from Kishore-era classics to whatever dropped last month. Every song is re-arranged for a five-piece — nothing on backing track that the band can play in the room. Sample spans below; full song list on request.</p>
-    <div class="rep">
-      <div class="rep-row reveal">
-        <span class="decade">60s–70s</span>
-        <div><h3>Golden-age Bollywood</h3><p>R.D. Burman, Kishore Kumar, Asha — the openers and the encores.</p></div>
-      </div>
-      <div class="rep-row reveal">
-        <span class="decade">80s–90s</span>
-        <div><h3>Retro floor-fillers</h3><p>The wedding-sangeet canon. Nadeem–Shravan, Bappi, early A.R. Rahman.</p></div>
-      </div>
-      <div class="rep-row reveal">
-        <span class="decade">2000s</span>
-        <div><h3>Millennial singalongs</h3><p>The songs the couple grew up on — every table knows the chorus.</p></div>
-      </div>
-      <div class="rep-row reveal">
-        <span class="decade">Now</span>
-        <div><h3>Current Bollywood &amp; Marathi</h3><p>Arijit, Pritam, Ajay–Atul and the Marathi hits that keep Pune floors full.</p></div>
-      </div>
-      <div class="rep-row reveal">
-        <span class="decade">Ours</span>
-        <div><h3>aftersunset originals</h3><p>A short set of our own material, slotted in when the night wants it.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ BAND ============ -->
 <section id="band" class="wrap">
   <div class="section-h">
-    <div class="eyebrow"><span class="mono accent">03 — Who We Are</span></div>
+    <div class="eyebrow"><span class="mono accent">02 — Who We Are</span></div>
     <h2>Meet the band.</h2>
   </div>
 
@@ -516,7 +562,127 @@
       <p>Strings, brass and the signature hooks — fills the arrangements out so a four-line song sounds like the record.</p>
     </div>
   </div>
-  <p class="mono" style="margin-top:22px;">Bios above are sample copy — swap in your own.</p>
+</section>
+
+<!-- ============ ARTISTS (in focus) ============ -->
+<section id="artists" class="wrap">
+  <div class="section-h">
+    <div class="eyebrow"><span class="mono accent">03 — The Artists</span></div>
+    <h2>Five players, five stories.</h2>
+  </div>
+  <p class="muted" style="max-width:60ch;">The full profiles behind the band — how each player got here and what they bring to the floor.</p>
+
+  <div class="profiles">
+
+    <!-- SHREYAS -->
+    <article class="profile reveal">
+      <div class="photo"><img src="band/shreyas.jpg" alt="Shreyas"></div>
+      <div class="profile-body">
+        <span class="mono accent">Guitar &amp; Vocals · Bandleader</span>
+        <h3 class="profile-name">Shreyas</h3>
+        <div class="tags"><span>Bollywood retro</span><span>Rock</span><span>Arranger</span></div>
+        <p>Shreyas founded aftersunset in 2018 and still builds every setlist. A self-taught guitarist who grew up on R.D. Burman and classic rock in equal measure, he fronts the band on the big singalongs and keeps the room moving between songs. Off stage he arranges the covers for a five-piece and runs the band's rehearsals.</p>
+        <h4 class="sub">Selected Credits</h4>
+        <ul>
+          <li>150+ live shows across Pune, Mumbai and Nashik</li>
+          <li>Former lead guitarist, The Midnight Locals (2015–2018)</li>
+          <li>Session guitar for regional ad jingles and short films</li>
+          <li>Music director, Symbiosis college productions (2017)</li>
+        </ul>
+        <div class="links">
+          <a href="#">Instagram</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- HARSHITA -->
+    <article class="profile reveal">
+      <div class="photo"><img src="band/harshita.jpg" alt="Harshita"></div>
+      <div class="profile-body">
+        <span class="mono accent">Lead Vocals</span>
+        <h3 class="profile-name">Harshita</h3>
+        <div class="tags"><span>Playback</span><span>Ghazal</span><span>Semi-classical</span></div>
+        <p>Harshita trained in Hindustani classical vocals for nine years before moving into stage and studio work. She carries the band across eras — the ghazal-soft numbers one minute, a full-throttle sangeet closer the next. Her range and control are why the band can program a set that moves from 1970s classics to this year's chart-toppers without losing the room.</p>
+        <h4 class="sub">Selected Credits</h4>
+        <ul>
+          <li>Visharad (Hindustani vocals), Akhil Bharatiya Gandharva Mahavidyalaya</li>
+          <li>Playback and scratch vocals for independent releases</li>
+          <li>Finalist, regional televised singing competition (2019)</li>
+          <li>Lead vocalist, 120+ aftersunset shows</li>
+        </ul>
+        <div class="links">
+          <a href="#">Instagram</a>
+          <a href="#">Spotify</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- SUNNY -->
+    <article class="profile reveal">
+      <div class="photo"><img src="band/sunny.jpg" alt="Sunny"></div>
+      <div class="profile-body">
+        <span class="mono accent">Bass</span>
+        <h3 class="profile-name">Sunny</h3>
+        <div class="tags"><span>Funk</span><span>Retro grooves</span><span>Pocket</span></div>
+        <p>Sunny holds down the low end and the pocket. A funk and disco obsessive, he's the reason the retro floor-fillers actually make people dance — locking in with the drums and leaving just enough space for everything above him to breathe. He plays a Fender Jazz bass through in-ears and keeps the dance floor honest.</p>
+        <h4 class="sub">Selected Credits</h4>
+        <ul>
+          <li>8 years gigging the Pune live-music circuit</li>
+          <li>Bassist for two touring tribute acts</li>
+          <li>Studio bass on independent singles and demos</li>
+          <li>Rig: Fender Jazz bass, Ampeg, in-ear monitoring</li>
+        </ul>
+        <div class="links">
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ATHARVA -->
+    <article class="profile reveal">
+      <div class="photo"><img src="band/atharva.jpg" alt="Atharva"></div>
+      <div class="profile-body">
+        <span class="mono accent">Drums</span>
+        <h3 class="profile-name">Atharva</h3>
+        <div class="tags"><span>Live drums</span><span>Transitions</span><span>Tempo</span></div>
+        <p>Atharva sets the tempo and the transitions — the reason one song rolls into the next without a gap. Equally at home behind an acoustic kit or triggering pads for the modern numbers, he's the engine room of the live show and the band's in-house click when a track needs tight timing.</p>
+        <h4 class="sub">Selected Credits</h4>
+        <ul>
+          <li>Grade 6 drums, Trinity College London</li>
+          <li>Drummer for college fest headline sets and corporate nights</li>
+          <li>Hybrid acoustic/electronic kit for live Bollywood arrangements</li>
+          <li>120+ shows with aftersunset</li>
+        </ul>
+        <div class="links">
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ANDY -->
+    <article class="profile reveal">
+      <div class="photo"><span class="glyph">A</span></div>
+      <div class="profile-body">
+        <span class="mono accent">Keys &amp; Synths</span>
+        <h3 class="profile-name">Andy</h3>
+        <div class="tags"><span>Production</span><span>Synths</span><span>Sound design</span></div>
+        <p>Andy fills the arrangements out — strings, brass and the signature hooks that make a four-line song sound like the record. With a background in production, he also handles the band's patches and backing elements, shaping the overall sound so the five-piece covers a lot more ground than five players usually can.</p>
+        <h4 class="sub">Selected Credits</h4>
+        <ul>
+          <li>Independent music producer and mixing engineer</li>
+          <li>Keys and programming for studio sessions</li>
+          <li>Designs the band's synth patches and backing stems</li>
+          <li>Rig: Nord Stage, Roland synth, laptop playback</li>
+        </ul>
+        <div class="links">
+          <a href="#">Instagram</a>
+          <a href="#">SoundCloud</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
 </section>
 
 <!-- ============ GALLERY ============ -->
@@ -525,7 +691,6 @@
     <div class="eyebrow"><span class="mono accent">Moments</span></div>
     <h2>Live, from the floor.</h2>
   </div>
-  <div id="galleryMain"></div>
   <div class="gallery" id="galleryGrid"></div>
 </section>
 <div id="lightbox" aria-modal="true" role="dialog">
@@ -540,12 +705,13 @@
   var data = window.GALLERY || [];
   if(!data.length) return;
   document.getElementById('gallery').hidden = false;
+  var vh = document.getElementById('videoHero'); if(vh) vh.hidden = false;
   var grid = document.getElementById('galleryGrid'), feat = document.getElementById('galleryMain'), cur = 0;
   data.forEach(function(it,i){
     var d = document.createElement('div'); d.className = 'g-item';
     if(it.main){
       d.classList.add('live');
-      d.innerHTML = '<video src="'+it.src+'" poster="'+it.poster+'" autoplay muted loop playsinline></video><span class="play">LIVE</span>';
+      d.innerHTML = '<video src="'+it.src+'" poster="'+it.poster+'" autoplay muted loop playsinline></video><span class="play">LIVE</span><span class="vid-loc">FC College, Pune</span>';
       d.addEventListener('click', function(){ show(i); });
       feat.appendChild(d); return;
     }
@@ -594,7 +760,6 @@
       <div class="spec"><dt>Travel</dt><dd>Pune base. Mumbai, Nashik and nearby on a per-event basis.</dd></div>
     </dl>
   </div>
-  <p class="mono" style="margin-top:22px;">Specs above are a sample rider — edit to match your setup.</p>
 </section>
 
 <!-- ============ SHOWS ============ -->
